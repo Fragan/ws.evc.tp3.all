@@ -32,9 +32,9 @@ public class PObject extends VirtualObject {
 		this.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
 		this.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		this.setCapability(TransformGroup.ENABLE_PICK_REPORTING);	
-		setCapability(ALLOW_CHILDREN_WRITE);
-		setCapability(ALLOW_CHILDREN_READ);
-		setCapability(ALLOW_CHILDREN_EXTEND);
+		setCapability(TransformGroup.ALLOW_CHILDREN_WRITE);
+		setCapability(TransformGroup.ALLOW_CHILDREN_READ);
+		setCapability(TransformGroup.ALLOW_CHILDREN_EXTEND);
 
 		VrmlLoader loader = new VrmlLoader();
 		try {			
@@ -53,7 +53,8 @@ public class PObject extends VirtualObject {
 	
 	public void hideBillBoard() {
 		if (billboardOwnerName != null) {
-			this.removeChild(billboardOwnerName);
+			billboardOwnerName.detach(); // Detaches this BranchGroup from its parent.
+//			this.removeChild(billboardOwnerName);
 			billboardOwnerName = null;
 		}
 		
@@ -66,6 +67,7 @@ public class PObject extends VirtualObject {
 				new Point3f(0f, -1f, 0f), Billboard.ROTATE_ABOUT_POINT,
 				new Point3f(0f, 0f, 0f), bounds);
 		billboardOwnerName = new BranchGroup();
+		billboardOwnerName.setCapability(BranchGroup.ALLOW_DETACH);
 		billboardOwnerName.addChild(tgb);
 		billboardOwnerName.compile();
 		

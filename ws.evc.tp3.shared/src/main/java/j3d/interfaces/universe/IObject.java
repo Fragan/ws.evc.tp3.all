@@ -27,5 +27,5 @@ public interface IObject {
 	
 	public String getUsedBy();
 
-	public void setUsedBy(String usedBy);
+	public void setUsedBy(String usedBy, boolean diffuse);
 }

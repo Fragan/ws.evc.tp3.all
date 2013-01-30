@@ -62,7 +62,8 @@ public class AObject implements IObject, Serializable {
 		return usedBy;
 	}
 
-	public void setUsedBy(String usedBy) {
+	public void setUsedBy(String usedBy, boolean diffuse) {
 		this.usedBy = usedBy;
+//		System.out.println("AObject.class : Object " + name + " used by user : " + usedBy);
 	}
 }

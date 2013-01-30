@@ -1,6 +1,7 @@
 package ihm.interaction.mouse;
 
 import ihm.interaction.mouse.MouseInteractor.MouseInteractorData;
+import j3d.controller.universe.CObject;
 import j3d.controller.universe.CSharedUniverse;
 import j3d.presentation.universe.PObject;
 
@@ -28,7 +29,7 @@ public class MouseStimulusObject extends AMouseStimulusState {
 			WakeupOnAWTEvent w = (WakeupOnAWTEvent) criteria.nextElement();
 			AWTEvent events[] = w.getAWTEvent();
 			for (int i = 0; i < events.length; i++) {
-				if (events[i].getID() == MouseEvent.MOUSE_PRESSED) {
+				if (events[i].getID() == MouseEvent.MOUSE_PRESSED) { // TODO bloquer la sélection si pas son propre nom et non vide !!!!!!!
 					if (((MouseEvent) events[i]).getButton() == MouseEvent.BUTTON1) {
 						msd.button1Pressed = true;
 					}
@@ -45,9 +46,12 @@ public class MouseStimulusObject extends AMouseStimulusState {
 					msd.buttonsInUse++;
 				} else if (events[i].getID() == MouseEvent.MOUSE_RELEASED) {
 					msd.buttonsInUse--;
+					
 					if (msd.buttonsInUse == 0) {
-						if (msd.cObjectInInteraction != null && !msd.cObjectInInteraction.getUsedBy().equals(CSharedUniverse.cCameraUser.getOwnerName()))
-							msd.cObjectInInteraction.setUsedBy("");
+						if (msd.cObjectInInteraction != null) {
+							msd.cObjectInInteraction.setUsedBy("", true);
+							System.err.println("Mouse released");
+						}
 						msd.cObjectInInteraction = null;
 					}
 					if (((MouseEvent) events[i]).getButton() == MouseEvent.BUTTON1) {
@@ -111,9 +115,13 @@ public class MouseStimulusObject extends AMouseStimulusState {
 			try {
 				Node node = sgPath[0]
 						.getNode(PickResult.TRANSFORM_GROUP);
-				if (node instanceof PObject) 
-					msd.cObjectInInteraction = ((PObject) node).getController();
-				else
+				if (node instanceof PObject) {
+					CObject cObject = ((PObject) node).getController();
+					if ("".equals(cObject.getUsedBy()) || CSharedUniverse.cCameraUser.getOwnerName().equals(cObject.getUsedBy())) {
+						// Current user can't interact with the selected object if it used by an other user
+						msd.cObjectInInteraction = cObject;
+					}
+				} else
 					msd.cObjectInInteraction = null;
 			} catch (Exception ex) {
 				System.out.println(ex);

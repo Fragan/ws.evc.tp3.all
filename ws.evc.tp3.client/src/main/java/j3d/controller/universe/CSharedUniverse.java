@@ -38,7 +38,6 @@ public class CSharedUniverse implements ISharedUniverse {
 			if (cCameraUser == null
 					|| (!camera.getOwnerName().equals(
 							cCameraUser.getOwnerName()))) {
-				System.out.println("===========> " + camera.getOwnerName() +  " <> "+ cCameraUser.getOwnerName());
 				CCamera cCamera = new CCamera((ACamera) camera, 
 						serverProxy, "http://espacezives.free.fr/pyramid.wrl");
 				cCameras.put(cCamera.getOwnerName(), cCamera);
@@ -195,6 +194,7 @@ public class CSharedUniverse implements ISharedUniverse {
 		if (cObject != null) {
 			cObject.setOrientation(object.getOrientation(), false);
 			cObject.setPosition(object.getPosition(), false);
+			cObject.setUsedBy(object.getUsedBy(), false);
 			((CObject) cObject).refresh();
 		} else {
 			CObject cObjectNew = new CObject((AObject) object, serverProxy);

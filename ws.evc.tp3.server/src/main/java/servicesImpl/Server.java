@@ -100,9 +100,12 @@ public class Server extends UnicastRemoteObject implements ISharedUniverseServer
 	public void update(IObject object) throws RemoteException {
 		IObject ourObject = sharedUniverse.getObject(object.getName());
 		if (ourObject != null) {
+			ourObject.setUsedBy(object.getUsedBy(), false);
 			ourObject.setOrientation(object.getOrientation(), false);
 			ourObject.setPosition(object.getPosition(), false);
 			BroadcastUpdates.getInstance().diffuse(object);
+			
+//			System.out.println("Server.class : Object " + ourObject.getName() + " used by user : " + ourObject.getUsedBy());
 		}
 	}
 	

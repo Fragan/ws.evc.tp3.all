@@ -49,11 +49,11 @@ public class CanvasExtended extends Canvas3D {
 		// Load a vrml model
 		AObject aCube;
 		if ("test".equals(ownerName)) {
-			aCube = new AObject("cubeDe" + ownerName + "_" + (Math.random() * 1000),
+			aCube = new AObject("cubeDe_" + ownerName + "_" + (Math.random() * 10),
 					"http://espacezives.free.fr/coneVert.wrl");
 		}
 		else {
-			aCube = new AObject("cubeDe" + ownerName + "_" + (Math.random() * 1000),
+			aCube = new AObject("cubeDe_" + ownerName + "_" + (Math.random() * 10),
 					"http://espacezives.free.fr/colorcube2.wrl");
 		}
 		CObject cube = new CObject(aCube, universeProxyServer);

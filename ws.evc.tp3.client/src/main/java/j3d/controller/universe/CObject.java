@@ -46,7 +46,7 @@ public class CObject implements IObject {
 	
 	public boolean isUtilizable() {
 		if (getUsedBy().isEmpty()) {
-			setUsedBy(CSharedUniverse.cCameraUser.getOwnerName());
+			setUsedBy(CSharedUniverse.cCameraUser.getOwnerName(), true);
 			return true;
 		}
 		else if(  CSharedUniverse.cCameraUser.getOwnerName().equals(getUsedBy()))
@@ -175,8 +175,15 @@ public class CObject implements IObject {
 		return abstraction.getUsedBy();
 	}
 
-	public void setUsedBy(String usedBy) {
-		abstraction.setUsedBy(usedBy);
+	public void setUsedBy(String usedBy, boolean diffuse) {
+		abstraction.setUsedBy(usedBy, false);
+		if (diffuse) {
+			try {
+				serverProxy.update(abstraction);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
