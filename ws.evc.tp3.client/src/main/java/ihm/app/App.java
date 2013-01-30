@@ -13,7 +13,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class App extends JFrame {
 
 	public static final String SERVER_NAME = "localhost";
-	public static final boolean LOCAL_SERVER = true;
+	public static final boolean LOCAL_SERVER = false;
 	
 	private static final long serialVersionUID = 1L;
 	private CanvasExtended canvas;
