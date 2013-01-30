@@ -1,5 +1,6 @@
 package client;
 
+import ihm.app.App;
 import j3d.interfaces.universe.ICamera;
 import j3d.interfaces.universe.IObject;
 import j3d.interfaces.universe.ISharedUniverse;
@@ -25,7 +26,7 @@ public class ReceiverUpdates extends Thread implements Runnable {
 			InetAddress adresseDiffusion = InetAddress.getByName(nomGroupe);
 			socketReception = new MulticastSocket(portDiffusion);
 			socketReception.joinGroup(adresseDiffusion);
-			socketReception.setLoopbackMode(true);
+			socketReception.setLoopbackMode(App.LOCAL_SERVER);
 			System.out.println("socket : " + socketReception.getLocalPort()
 					+ " " + socketReception.getInetAddress());
 

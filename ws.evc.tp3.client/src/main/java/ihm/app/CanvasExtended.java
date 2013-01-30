@@ -42,7 +42,7 @@ public class CanvasExtended extends Canvas3D {
 		setDoubleBufferEnable(true);
 
 		// Create a universe
-		universeProxyServer = Client.getSharedUniverse("localhost", "1234",
+		universeProxyServer = Client.getSharedUniverse(App.SERVER_NAME, "1234",
 				"Pluton");
 		universe = new CSharedUniverse(universeProxyServer, this);
 
