@@ -26,7 +26,7 @@ public class ReceiverUpdates extends Thread implements Runnable {
 			InetAddress adresseDiffusion = InetAddress.getByName(nomGroupe);
 			socketReception = new MulticastSocket(portDiffusion);
 			socketReception.joinGroup(adresseDiffusion);
-			socketReception.setLoopbackMode(App.LOCAL_SERVER);
+			socketReception.setLoopbackMode(App.NETWORK_SERVER);
 			System.out.println("socket : " + socketReception.getLocalPort()
 					+ " " + socketReception.getInetAddress());
 
